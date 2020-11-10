@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2014 http://www.accellera.org/XMLSchema/IPXACT/1685-2014/index.xsd">
+
+  <ipxact:vendor>keysight.com</ipxact:vendor>
+
+  <ipxact:library>Submodule</ipxact:library>
+
+  <ipxact:name>EnvelopeModulator</ipxact:name>
+
+  <ipxact:version>1.0.0</ipxact:version>
+
+  <ipxact:busInterfaces>
+    <ipxact:busInterface>
+      <ipxact:name>Clk</ipxact:name>
+      <ipxact:busType library="interfaces" name="clock" vendor="keysight.com" version="1.0"/>
+      <ipxact:abstractionTypes>
+        <ipxact:abstractionType>
+          <ipxact:abstractionRef library="interfaces" name="clock.absDef" vendor="keysight.com" version="1.0"/>
+          <ipxact:portMaps>
+            <ipxact:portMap>
+              <ipxact:logicalPort>
+                <ipxact:name>clk</ipxact:name>
+              </ipxact:logicalPort>
+              <ipxact:physicalPort>
+                <ipxact:name>Clk_clk</ipxact:name>
+              </ipxact:physicalPort>
+            </ipxact:portMap>
+          </ipxact:portMaps>
+        </ipxact:abstractionType>
+      </ipxact:abstractionTypes>
+      <ipxact:slave/>
+      <ipxact:parameters>
+        <ipxact:parameter>
+          <ipxact:name>ASSOCIATED_BUSIF</ipxact:name>
+          <ipxact:value>Dout</ipxact:value>
+        </ipxact:parameter>
+        <ipxact:parameter>
+          <ipxact:name>ASSOCIATED_RESET</ipxact:name>
+          <ipxact:value>nRst</ipxact:value>
+        </ipxact:parameter>
+      </ipxact:parameters>
+      <ipxact:vendorExtensions>
+        <keysight:iopipe xmlns:keysight="http://www.keysight.com">
+          <keysight:iopipeCategory>Communications</keysight:iopipeCategory>
+        </keysight:iopipe>
+      </ipxact:vendorExtensions>
+    </ipxact:busInterface>
+    <ipxact:busInterface>
+      <ipxact:name>nRst</ipxact:name>
+      <ipxact:busType library="interfaces" name="nRst" vendor="keysight.com" version="1.0"/>
+      <ipxact:abstractionTypes>
+        <ipxact:abstractionType>
+          <ipxact:abstractionRef library="interfaces" name="nRst.absDef" vendor="keysight.com" version="1.0"/>
+          <ipxact:portMaps>
+            <ipxact:portMap>
+              <ipxact:logicalPort>
+                <ipxact:name>nRst</ipxact:name>
+              </ipxact:logicalPort>
+              <ipxact:physicalPort>
+                <ipxact:name>nRst_nRst</ipxact:name>
+              </ipxact:physicalPort>
+            </ipxact:portMap>
+          </ipxact:portMaps>
+        </ipxact:abstractionType>
+      </ipxact:abstractionTypes>
+      <ipxact:slave/>
+      <ipxact:vendorExtensions>
+        <keysight:iopipe xmlns:keysight="http://www.keysight.com">
+          <keysight:iopipeCategory>Communications</keysight:iopipeCategory>
+        </keysight:iopipe>
+      </ipxact:vendorExtensions>
+    </ipxact:busInterface>
+    <ipxact:busInterface>
+      <ipxact:name>Dout</ipxact:name>
+      <ipxact:busType library="interfaces" name="axis" vendor="keysight.com" version="1.0"/>
+      <ipxact:abstractionTypes>
+        <ipxact:abstractionType>
+          <ipxact:abstractionRef library="interfaces" name="axis.absDef" vendor="keysight.com" version="1.0"/>
+          <ipxact:portMaps>
+            <ipxact:portMap>
+              <ipxact:logicalPort>
+                <ipxact:name>tdata</ipxact:name>
+              </ipxact:logicalPort>
+              <ipxact:physicalPort>
+                <ipxact:name>Dout_tdata</ipxact:name>
+              </ipxact:physicalPort>
+            </ipxact:portMap>
+            <ipxact:portMap>
+              <ipxact:logicalPort>
+                <ipxact:name>tvalid</ipxact:name>
+              </ipxact:logicalPort>
+              <ipxact:physicalPort>
+                <ipxact:name>Dout_tvalid</ipxact:name>
+              </ipxact:physicalPort>
+            </ipxact:portMap>
+          </ipxact:portMaps>
+        </ipxact:abstractionType>
+      </ipxact:abstractionTypes>
+      <ipxact:master/>
+      <ipxact:vendorExtensions>
+        <keysight:iopipe xmlns:keysight="http://www.keysight.com">
+          <keysight:iopipeCategory>Communications</keysight:iopipeCategory>
+          <keysight:supportedConversions>
+            <keysight:stream/>
+          </keysight:supportedConversions>
+        </keysight:iopipe>
+      </ipxact:vendorExtensions>
+    </ipxact:busInterface>
+    <ipxact:busInterface>
+      <ipxact:name>Envelope</ipxact:name>
+      <ipxact:busType library="interfaces" name="vector" vendor="keysight.com" version="1.0"/>
+      <ipxact:abstractionTypes>
+        <ipxact:abstractionType>
+          <ipxact:abstractionRef library="interfaces" name="vector.absDef" vendor="keysight.com" version="1.0"/>
+          <ipxact:portMaps>
+            <ipxact:portMap>
+              <ipxact:logicalPort>
+                <ipxact:name>Signal</ipxact:name>
+              </ipxact:logicalPort>
+              <ipxact:physicalPort>
+                <ipxact:name>Envelope_Signal</ipxact:name>
+              </ipxact:physicalPort>
+            </ipxact:portMap>
+          </ipxact:portMaps>
+        </ipxact:abstractionType>
+      </ipxact:abstractionTypes>
+      <ipxact:slave/>
+      <ipxact:vendorExtensions>
+        <keysight:iopipe xmlns:keysight="http://www.keysight.com">
+          <keysight:iopipeCategory>Communications</keysight:iopipeCategory>
+        </keysight:iopipe>
+      </ipxact:vendorExtensions>
+    </ipxact:busInterface>
+    <ipxact:busInterface>
+      <ipxact:name>Carrier</ipxact:name>
+      <ipxact:busType library="interfaces" name="vector" vendor="keysight.com" version="1.0"/>
+      <ipxact:abstractionTypes>
+        <ipxact:abstractionType>
+          <ipxact:abstractionRef library="interfaces" name="vector.absDef" vendor="keysight.com" version="1.0"/>
+          <ipxact:portMaps>
+            <ipxact:portMap>
+              <ipxact:logicalPort>
+                <ipxact:name>Signal</ipxact:name>
+              </ipxact:logicalPort>
+              <ipxact:physicalPort>
+                <ipxact:name>Carrier_Signal</ipxact:name>
+              </ipxact:physicalPort>
+            </ipxact:portMap>
+          </ipxact:portMaps>
+        </ipxact:abstractionType>
+      </ipxact:abstractionTypes>
+      <ipxact:slave/>
+      <ipxact:vendorExtensions>
+        <keysight:iopipe xmlns:keysight="http://www.keysight.com">
+          <keysight:iopipeCategory>Communications</keysight:iopipeCategory>
+        </keysight:iopipe>
+      </ipxact:vendorExtensions>
+    </ipxact:busInterface>
+  </ipxact:busInterfaces>
+
+  <ipxact:model>
+    <ipxact:instantiations>
+      <ipxact:componentInstantiation>
+        <ipxact:name>flat_vhdl_component</ipxact:name>
+        <ipxact:moduleName>EnvelopeModulator</ipxact:moduleName>
+      </ipxact:componentInstantiation>
+    </ipxact:instantiations>
+    <ipxact:ports>
+      <ipxact:port>
+        <ipxact:name>Clk_clk</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>in</ipxact:direction>
+          <ipxact:drivers>
+            <ipxact:driver>
+              <ipxact:defaultValue>0</ipxact:defaultValue>
+            </ipxact:driver>
+          </ipxact:drivers>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>nRst_nRst</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>in</ipxact:direction>
+          <ipxact:drivers>
+            <ipxact:driver>
+              <ipxact:defaultValue>1</ipxact:defaultValue>
+            </ipxact:driver>
+          </ipxact:drivers>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>Dout_tdata</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>out</ipxact:direction>
+          <ipxact:vectors>
+            <ipxact:vector>
+              <ipxact:left>79</ipxact:left>
+              <ipxact:right>0</ipxact:right>
+            </ipxact:vector>
+          </ipxact:vectors>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>Dout_tvalid</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>out</ipxact:direction>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>Envelope_Signal</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>in</ipxact:direction>
+          <ipxact:vectors>
+            <ipxact:vector>
+              <ipxact:left>15</ipxact:left>
+              <ipxact:right>0</ipxact:right>
+            </ipxact:vector>
+          </ipxact:vectors>
+          <ipxact:drivers>
+            <ipxact:driver>
+              <ipxact:defaultValue>0</ipxact:defaultValue>
+            </ipxact:driver>
+          </ipxact:drivers>
+        </ipxact:wire>
+      </ipxact:port>
+      <ipxact:port>
+        <ipxact:name>Carrier_Signal</ipxact:name>
+        <ipxact:wire>
+          <ipxact:direction>in</ipxact:direction>
+          <ipxact:vectors>
+            <ipxact:vector>
+              <ipxact:left>79</ipxact:left>
+              <ipxact:right>0</ipxact:right>
+            </ipxact:vector>
+          </ipxact:vectors>
+          <ipxact:drivers>
+            <ipxact:driver>
+              <ipxact:defaultValue>0</ipxact:defaultValue>
+            </ipxact:driver>
+          </ipxact:drivers>
+        </ipxact:wire>
+      </ipxact:port>
+    </ipxact:ports>
+  </ipxact:model>
+
+  <ipxact:fileSets>
+    <ipxact:fileSet>
+      <ipxact:name>keysight_submodule_fileset</ipxact:name>
+      <ipxact:file>
+        <ipxact:name>EnvelopeModulator.ksub</ipxact:name>
+        <ipxact:fileType user="ksub">user</ipxact:fileType>
+      </ipxact:file>
+    </ipxact:fileSet>
+  </ipxact:fileSets>
+
+  <ipxact:description>This is a submodule IP generated with PathWave FPGA</ipxact:description>
+
+  <ipxact:vendorExtensions>
+    <keysight:ipMetadata xmlns:keysight="http://www.keysight.com">
+      <keysight:categories>
+        <keysight:category>DSP</keysight:category>
+      </keysight:categories>
+      <keysight:version>
+        <keysight:major>1</keysight:major>
+        <keysight:minor>4</keysight:minor>
+        <keysight:revision>0</keysight:revision>
+      </keysight:version>
+    </keysight:ipMetadata>
+  </ipxact:vendorExtensions>
+
+</ipxact:component>
