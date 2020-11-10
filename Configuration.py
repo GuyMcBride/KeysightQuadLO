@@ -69,8 +69,15 @@ class Hvi:
     handle : int = 0
 
 @dataclass
+class FpgaRegister:
+    name : str
+    address : int
+    value : int
+
+@dataclass
 class Fpga:
     file_name : str
+    registers : [FpgaRegister]
 
 @dataclass
 class SubPulseDescriptor:
@@ -93,7 +100,6 @@ class ModuleDescriptor:
     sample_rate : float
     slot : int
     fpga : Fpga
-    mode : int
     loDescriptors : [LoDescriptor]
     pulseDescriptors : [PulseDescriptor]
     queues: [Queue] = None

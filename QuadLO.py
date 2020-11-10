@@ -67,17 +67,17 @@ def configureAwgs():
                 awg.AWGflush(channel + 1)
             #Set up the channels suppporting interleaving
             setupLOs(module)
-            #Select output type
-            error = module.handle.FPGAwritePCport(0, 
-                                                  [module.mode], 
-                                                  8, 
-                                                  key.SD_AddressingMode.FIXED,
-                                                  key.SD_AccessMode.NONDMA)
-            if error < 0:
-                log.error('WriteRegister: {} {}'.format(error, 
-                                                        key.SD_Error.getErrorMessage(error)))
-                log.error('Address: {}'.format(8))
-                log.error('Buffer [{}]'.format(module.mode))
+            for register in module.fpga.registers:
+                error = module.handle.FPGAwritePCport(0, 
+                                                      [register.value], 
+                                                      register.address, 
+                                                      key.SD_AddressingMode.FIXED,
+                                                      key.SD_AccessMode.NONDMA)
+                if error < 0:
+                    log.error('WriteRegister: {} {}'.format(error, 
+                                                            key.SD_Error.getErrorMessage(error)))
+                    log.error('Address: {}'.format(8))
+                    log.error('Buffer [{}]'.format(module.mode))
             loadInterleavedWaves(module)
             enqueueWaves(module)
             trigmask = 0

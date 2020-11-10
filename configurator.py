@@ -11,8 +11,8 @@ import logging
 
 from Configuration import (Config, ModuleDescriptor, HviConstant,
                            HviModule, Hvi, PulseDescriptor, 
-                           SubPulseDescriptor, Fpga, LoDescriptor, 
-                           Queue, QueueItem, loadConfig)
+                           SubPulseDescriptor, Fpga, FpgaRegister, 
+                           LoDescriptor, Queue, QueueItem, loadConfig)
 
 log = logging.getLogger(__name__)
 
@@ -37,11 +37,20 @@ def saveConfig(config : Config):
 
 if (__name__ == '__main__'):
 
-    fpga = Fpga("test_test_partial.sbp")
-    
     # mode: 0 = output individual waveform from one LO
     #       1 = output superimposed waveforms from all LOs
     mode = 1
+    
+    # FpgaRegister:
+    #   #1 - name of register
+    #   #2 - address of register
+    #   #3 - value to be written
+    fpgaRegisters = [FpgaRegister('mode', 8, mode)]
+    
+    # Fpga:
+    #   #1 - filename of bit image
+    #   #2 - list of writable register values
+    fpga = Fpga("test_test_partial.sbp", fpgaRegisters)
     
     # los: #1 - channel number for LO bank
     #      #2 - list of LO frequencies for all LOs in bank
@@ -86,8 +95,8 @@ if (__name__ == '__main__'):
     #    #5 - FPGA details
     #    #6 - List of LoDescriptor details
     #    #7 - List of PulseDescriptor details
-    modules = [ModuleDescriptor("M3202A", 4, 1E09, 2, fpga, mode, [los1], [pulseDescriptor], [queue]), 
-               ModuleDescriptor("M3202A", 4, 1E09, 4, fpga, mode, [los2], [pulseDescriptor], [queue])]
+    modules = [ModuleDescriptor("M3202A", 4, 1E09, 2, fpga, [los1], [pulseDescriptor], [queue]), 
+               ModuleDescriptor("M3202A", 4, 1E09, 4, fpga, [los2], [pulseDescriptor], [queue])]
     
     # HviConstant:
     #    #1 - Constant name
