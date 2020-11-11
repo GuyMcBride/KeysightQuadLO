@@ -8,7 +8,7 @@ Created on Fri Nov  6 09:08:30 2020
 import os
 import yaml
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import logging.config
 
 def setup_logging(
@@ -70,14 +70,14 @@ class Hvi:
 
 @dataclass
 class FpgaRegister:
-    name : str
-    address : int
-    value : int
+    name : str = ''
+    address : int = 0
+    value : int = 0
 
 @dataclass
 class Fpga:
-    file_name : str
-    registers : [FpgaRegister]
+    file_name : str = ''
+    registers : [FpgaRegister] = field(default_factory=list)
 
 @dataclass
 class SubPulseDescriptor:
@@ -91,7 +91,7 @@ class SubPulseDescriptor:
 class PulseDescriptor:
     id : int
     pri : float()
-    pulses : [SubPulseDescriptor] = None
+    pulses : [SubPulseDescriptor] = field(default_factory=list)
 
 @dataclass
 class ModuleDescriptor:
@@ -100,11 +100,27 @@ class ModuleDescriptor:
     sample_rate : float
     slot : int
     fpga : Fpga
+    
+@dataclass
+class AwgDescriptor(ModuleDescriptor):
     loDescriptors : [LoDescriptor]
     pulseDescriptors : [PulseDescriptor]
-    queues: [Queue] = None
+    queues: [Queue] = field(default_factory=list)
     handle : int = 0
+    
+@dataclass
+class DaqDescriptor:
+    channel : int
+    captureTime : float
+    captureCount : int
+    trigger : bool
+    triggerDelay : int = 0
 
+@dataclass
+class DigDescriptor(ModuleDescriptor):
+    daqs : [DaqDescriptor]
+    handle : int = 0
+    
 @dataclass
 class Config:
     modules : [ModuleDescriptor]

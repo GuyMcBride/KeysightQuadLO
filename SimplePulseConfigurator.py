@@ -56,12 +56,10 @@ if (__name__ == '__main__'):
     # Fpga:
     #   #1 - filename of bit image
     #   #2 - list of writable register values
-    fpga = Fpga("test_test_partial.sbp", fpgaRegisters)
+    fpga = Fpga("firmware_Vanilla M3202A_CLF_K41_2020-08-10T15_45_43.sbp")
     
     # los: #1 - channel number for LO bank
     #      #2 - list of LO frequencies for all LOs in bank
-    los1 = LoDescriptor(1, [10E6, 30E6, 50E6, 70E6])
-    los2 = LoDescriptor(1, [20E6, 30E6, 50E6, 70E6])
     
     # SubPulseDescriptor:
     #    #1 - carrier frequency inside envelope (generally 0 if using LO)
@@ -70,20 +68,14 @@ if (__name__ == '__main__'):
     #            (needs to be long enough for envelope shaping)
     #    #4 - Amplitude (sum of amplitudes must be < 1.0)
     #    #5 - pulse shaping filter bandwidth
-    pulseGroup = [SubPulseDescriptor(0, 10e-6, 1E-06,  0.3,   .1E06),
-                  SubPulseDescriptor(0, 10e-6, 2E-06, -0.1,   1E06),
-                  SubPulseDescriptor(0, 10e-6, 15E-06,  0.06,  1E06),
-                  SubPulseDescriptor(0, 5e-6, 20E-06, -0.043, 1E06)]
-
-    pulseGroup2 = [SubPulseDescriptor(10E6, 10e-6, 1E-06, 0.5, 1E06)]
+    pulseGroup1 = [SubPulseDescriptor(10E6, 10e-6, 1E-06, 0.5, 1E06)]
     
     # PulseDescriptor
     #    #1 - Waveform ID to be used. Must be unique for every pulse (PulseGroup)
     #    #2 - The length of the pulse window 
     #            (must be long enough to hold all pulse enelopes, with transition times)
     #    #3 - List of SubPulseDescriptor details - to maximum of 5.
-    pulseDescriptor1 = PulseDescriptor(1, 40e-06, pulseGroup)
-    pulseDescriptor2 = PulseDescriptor(2, 40e-06, pulseGroup2)
+    pulseDescriptor1 = PulseDescriptor(1, 40e-06, pulseGroup1)
     
     # QueueItem:
     #    #1 - PulseGroup ID that defines the waveform
@@ -95,7 +87,7 @@ if (__name__ == '__main__'):
     #    #2 - IsCyclical 
     #    #3 - List of QueueItem details (waveforms)
     queue1 = Queue(1, True, [QueueItem(1, True, 0, 1)])
-    queue2 = Queue(4, True, [QueueItem(2, True, 0, 1)])
+    queue2 = Queue(4, True, [QueueItem(1, True, 0, 1)])
 
     # DaqDescriptor:
     #    #1 - Channel
@@ -121,11 +113,11 @@ if (__name__ == '__main__'):
     #    #5 - FPGA details
     #    #6 - 
     #    #7 - 
-    awg1 = AwgDescriptor("M3202A", 4, 1E09, 2, fpga, [los1], 
-                         [pulseDescriptor1, pulseDescriptor2], 
+    awg1 = AwgDescriptor("M3202A", 4, 1E09, 2, fpga, [], 
+                         [pulseDescriptor1], 
                          [queue1, queue2])
 
-    awg2 = AwgDescriptor("M3202A", 4, 1E09, 4, fpga, [los2], 
+    awg2 = AwgDescriptor("M3202A", 4, 1E09, 4, fpga, [], 
                          [pulseDescriptor1], 
                          [queue1])
 
