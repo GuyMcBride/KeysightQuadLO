@@ -45,7 +45,7 @@ if (__name__ == '__main__'):
 
     # mode: 0 = output individual waveform from one LO
     #       1 = output superimposed waveforms from all LOs
-    mode = 1
+    mode = 0
     
     # FpgaRegister:
     #   #1 - name of register
@@ -70,10 +70,10 @@ if (__name__ == '__main__'):
     #            (needs to be long enough for envelope shaping)
     #    #4 - Amplitude (sum of amplitudes must be < 1.0)
     #    #5 - pulse shaping filter bandwidth
-    pulseGroup = [SubPulseDescriptor(0, 10e-6, 1E-06,  0.3,   .1E06),
-                  SubPulseDescriptor(0, 10e-6, 2E-06, -0.1,   1E06),
-                  SubPulseDescriptor(0, 10e-6, 15E-06,  0.06,  1E06),
-                  SubPulseDescriptor(0, 5e-6, 20E-06, -0.043, 1E06)]
+    pulseGroup = [SubPulseDescriptor(0, 10e-6, 1E-06,  0.3,    1E06),
+                  SubPulseDescriptor(0, 10e-6, 1E-06, -0.1,   1E06),
+                  SubPulseDescriptor(0, 10e-6, 1E-06,  0.06,  1E06),
+                  SubPulseDescriptor(0, 10e-6, 1E-06, -0.043, 1E06)]
 
     pulseGroup2 = [SubPulseDescriptor(10E6, 10e-6, 1E-06, 0.5, 1E06)]
     
@@ -82,8 +82,8 @@ if (__name__ == '__main__'):
     #    #2 - The length of the pulse window 
     #            (must be long enough to hold all pulse enelopes, with transition times)
     #    #3 - List of SubPulseDescriptor details - to maximum of 5.
-    pulseDescriptor1 = PulseDescriptor(1, 40e-06, pulseGroup)
-    pulseDescriptor2 = PulseDescriptor(2, 40e-06, pulseGroup2)
+    pulseDescriptor1 = PulseDescriptor(1, 60e-06, pulseGroup)
+    pulseDescriptor2 = PulseDescriptor(2, 60e-06, pulseGroup2)
     
     # QueueItem:
     #    #1 - PulseGroup ID that defines the waveform
