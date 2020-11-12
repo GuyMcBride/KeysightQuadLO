@@ -158,24 +158,36 @@ def loadWaves(module):
         if len(pulseDescriptor.pulses) > 1:
             waves = []
             for pulse in pulseDescriptor.pulses:
-                wave = pulseLab.createPulse(module.sample_rate / 5,
+                samples = pulseLab.createPulse(module.sample_rate / 5,
                                             pulse.width,
                                             pulse.bandwidth,
                                             pulse.amplitude / 1.5,
                                             pulseDescriptor.pri,
                                             pulse.toa)
-                waves.append(wave.wave)
+                if pulse.carrier != 0:
+                    carrier = pulseLab.createTone(module.sample_rate, 
+                                                  pulse.carrier,
+                                                  0,
+                                                  samples.timebase)
+                    wave = samples.wave * carrier
+                waves.append(samples.wave)
             wave = interweavePulses(waves)
         else:
             #not interleaved, so normal channel
             pulse = pulseDescriptor.pulses[0]
-            wave = pulseLab.createPulse(module.sample_rate,
+            samples = pulseLab.createPulse(module.sample_rate,
                                         pulse.width,
                                         pulse.bandwidth,
                                         pulse.amplitude / 1.5,
                                         pulseDescriptor.pri,
-                                        pulse.toa).wave
-
+                                        pulse.toa)
+            wave = samples.wave
+            if pulse.carrier != 0:
+                carrier = pulseLab.createTone(module.sample_rate, 
+                                              pulse.carrier,
+                                              0,
+                                              samples.timebase)
+                wave = wave * carrier
         waveform = key.SD_Wave()
         error = waveform.newFromArrayDouble(key.SD_WaveformTypes.WAVE_ANALOG, 
                                             wave)
@@ -218,6 +230,10 @@ def enqueueWaves(module):
         if error < 0:
             log.error("Configure cyclic mode failed! - {}".format(error))
 
+        # This is only required for channels that implement the 'vanilla'
+        # ModGain block. (It does no harm to other applications that do not).
+        # It assumes that the source is to be directly from the AWG, rather 
+        # than function generator.
         log.info("Setting Output Characteristics for channel {}".format(queue.channel))
         error = module.handle.channelWaveShape(queue.channel, key.SD_Waveshapes.AOU_AWG)
         if error < 0:
