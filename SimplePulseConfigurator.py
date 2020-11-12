@@ -92,7 +92,8 @@ if (__name__ == '__main__'):
     # DaqDescriptor:
     #    #1 - Channel
     #    #2 - Capture Period
-    #    #3 - Trigger (False = auto, True = trigger from SW/HVI)
+    #    #3 - Number of captures
+    #    #4 - Trigger (False = auto, True = trigger from SW/HVI)
     daq1 = DaqDescriptor(1, 100e-06, repeats, True)
     
     # AwgDescriptor:
